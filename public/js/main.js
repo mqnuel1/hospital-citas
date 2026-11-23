@@ -271,11 +271,15 @@ function inicializarFiltrosNumericos() {
   }
 }
 
-// Inicializar selector de fecha con fecha mínima hoy
+// Inicializar selector de fecha con fecha mínima hoy en hora local
 function inicializarFecha() {
   const inputFecha = document.getElementById("cita-fecha");
   if (!inputFecha) return;
-  const hoy = new Date().toISOString().split("T")[0];
+  const d = new Date();
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  const hoy = `${year}-${month}-${day}`;
   inputFecha.min = hoy;
   inputFecha.value = hoy;
 }

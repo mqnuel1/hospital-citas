@@ -7,6 +7,17 @@ import sqlite3
 import datetime
 import os
 
+# Zona horaria oficial del Hospital Nacional (Lima, Perú: UTC-5)
+ZONA_HORARIA_PERU = datetime.timezone(datetime.timedelta(hours=-5))
+
+def ahora_peru() -> datetime.datetime:
+    """Retorna la fecha y hora actual en la hora oficial de Perú (UTC-5)."""
+    return datetime.datetime.now(ZONA_HORARIA_PERU).replace(tzinfo=None)
+
+def fecha_hoy_peru() -> str:
+    """Retorna la fecha actual en Perú en formato YYYY-MM-DD."""
+    return ahora_peru().strftime("%Y-%m-%d")
+
 DB_PATH = os.path.join(os.path.dirname(__file__), "hospital.db")
 
 def get_connection():
@@ -151,8 +162,8 @@ def seed_especialidades(cursor):
     """, especialidades)
 
 def seed_demo_data(cursor):
-    today = datetime.date.today().isoformat()
-    now = datetime.datetime.now()
+    today = fecha_hoy_peru()
+    now = ahora_peru()
 
     # Citas médicas programadas (representación completa del flujo hospitalario)
     citas_demo = [

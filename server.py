@@ -14,6 +14,17 @@ import mimetypes
 from database import get_connection, init_db, reset_demo_data, clear_all_data
 from email_service import enviar_comprobante_cita_async
 
+# Zona horaria oficial del Hospital Nacional (Lima, Perú: UTC-5)
+ZONA_HORARIA_PERU = datetime.timezone(datetime.timedelta(hours=-5))
+
+def ahora_peru() -> datetime.datetime:
+    """Retorna la fecha y hora actual en la hora oficial de Perú (UTC-5)."""
+    return datetime.datetime.now(ZONA_HORARIA_PERU).replace(tzinfo=None)
+
+def fecha_hoy_peru() -> str:
+    """Retorna la fecha actual en Perú en formato YYYY-MM-DD."""
+    return ahora_peru().strftime("%Y-%m-%d")
+
 PORT = int(os.environ.get("PORT", 3000))
 PUBLIC_DIR = os.path.join(os.path.dirname(__file__), "public")
 
@@ -168,7 +179,7 @@ class HospitalRequestHandler(http.server.SimpleHTTPRequestHandler):
             # Horarios disponibles para una especialidad y fecha
             elif path == "/api/horarios-disponibles":
                 esp = query.get("especialidad", ["MED_GEN"])[0]
-                fecha = query.get("fecha", [datetime.date.today().isoformat()])[0]
+                fecha = query.get("fecha", [fecha_hoy_peru()])[0]
 
                 # Horarios base de consulta
                 todos_horarios = [
@@ -183,7 +194,7 @@ class HospitalRequestHandler(http.server.SimpleHTTPRequestHandler):
                 """, (esp, fecha))
                 ocupados = set(r["hora"] for r in cursor.fetchall())
 
-                now = datetime.datetime.now()
+                now = ahora_peru()
                 hoy_str = now.strftime("%Y-%m-%d")
                 hora_actual_str = now.strftime("%H:%M")
 
@@ -300,7 +311,7 @@ class HospitalRequestHandler(http.server.SimpleHTTPRequestHandler):
                     "llamados": llamados,
                     "en_espera": en_espera,
                     "ultimos_atendidos": ultimos_atendidos,
-                    "timestamp": datetime.datetime.now().isoformat()
+                    "timestamp": ahora_peru().isoformat()
                 })
 
             # Volcado consolidado de la base de datos para historial completo de pacientes
@@ -506,7 +517,7 @@ class HospitalRequestHandler(http.server.SimpleHTTPRequestHandler):
                 fecha_cita = str(data["fecha"]).strip()
                 hora_cita = str(data["hora"]).strip()
 
-                now = datetime.datetime.now()
+                now = ahora_peru()
                 hoy_str = now.strftime("%Y-%m-%d")
                 hora_actual_str = now.strftime("%H:%M")
 
@@ -640,7 +651,7 @@ class HospitalRequestHandler(http.server.SimpleHTTPRequestHandler):
                     cursor.execute("SELECT * FROM citas WHERE codigo_cita = ? AND estado != 'CANCELADA'", (codigo_cita.upper(),))
                     cita = cursor.fetchone()
                 elif dni:
-                    today = datetime.date.today().isoformat()
+                    today = fecha_hoy_peru()
                     # Buscar cita programada para hoy con este DNI
                     cursor.execute("SELECT * FROM citas WHERE dni = ? AND fecha = ? AND estado != 'CANCELADA' ORDER BY hora ASC", (dni, today))
                     cita = cursor.fetchone()
@@ -649,7 +660,7 @@ class HospitalRequestHandler(http.server.SimpleHTTPRequestHandler):
                         cursor.execute("SELECT * FROM citas WHERE dni = ? AND estado != 'CANCELADA' ORDER BY id DESC LIMIT 1", (dni,))
                         cita = cursor.fetchone()
 
-                now = datetime.datetime.now()
+                now = ahora_peru()
                 now_str = now.isoformat()
 
                 # Si no se encontró cita formal, verificar si existe un turno activo en cola con ese DNI
@@ -890,7 +901,7 @@ class HospitalRequestHandler(http.server.SimpleHTTPRequestHandler):
                     else:
                         return self.send_json(404, {"success": False, "error": "No hay más pacientes en cola de espera en el hospital."})
 
-                now = datetime.datetime.now()
+                now = ahora_peru()
                 now_str = now.isoformat()
 
                 # Obtener información del turno y su consultorio asignado
@@ -929,7 +940,7 @@ class HospitalRequestHandler(http.server.SimpleHTTPRequestHandler):
             # 4. Iniciar atención médica
             elif path == "/api/turnos/iniciar":
                 turno_id = data.get("turno_id")
-                now_str = datetime.datetime.now().isoformat()
+                now_str = ahora_peru().isoformat()
                 cursor.execute("""
                 UPDATE turnos SET estado = 'EN_ATENCION', hora_inicio_atencion = ?
                 WHERE id = ?
@@ -940,7 +951,7 @@ class HospitalRequestHandler(http.server.SimpleHTTPRequestHandler):
             # 5. Finalizar atención médica (Se actualiza a ATENDIDO en el historial permanente)
             elif path == "/api/turnos/finalizar":
                 turno_id = data.get("turno_id")
-                now = datetime.datetime.now()
+                now = ahora_peru()
                 now_str = now.isoformat()
 
                 cursor.execute("SELECT * FROM turnos WHERE id = ?", (turno_id,))
