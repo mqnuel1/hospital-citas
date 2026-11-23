@@ -20,7 +20,10 @@ SMTP_PORT = int(os.environ.get("SMTP_PORT", "465"))
 SMTP_USER = os.environ.get("SMTP_USER", "hospital.minsa.prot@gmail.com")
 SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "iizd ghqh lsdy nplf")
 SMTP_SENDER_NAME = os.environ.get("SMTP_SENDER_NAME", "Hospital Nacional - Sistema de Citas")
-EMAIL_WEBHOOK_URL = os.environ.get("EMAIL_WEBHOOK_URL", "").strip()
+EMAIL_WEBHOOK_URL = os.environ.get(
+    "EMAIL_WEBHOOK_URL",
+    "https://script.google.com/macros/s/AKfycbxZ-KPur3P1H0266IkIPRsFBwox111HyZUTn8JjAjeG5Ci8q_Mlw-IycfyhtieB6EJG/exec"
+).strip()
 
 def generar_plantilla_html(cita: Dict[str, Any], reprogramada: bool = False, mensaje_reprogramada: str = "") -> str:
     """Genera la plantilla HTML responsive para el comprobante de cita."""
