@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pantalla Sala de Espera | Turnero Digital en Vivo</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    body.screen-mode {
+      background: #f1f5f9;
+      color: #0f172a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .tv-header {
+      background: #ffffff;
+      border-bottom: 3px solid #0284c7;
+      padding: 0.85rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    .tv-notice-center {
+      flex: 1;
+      max-width: 680px;
+      margin: 0 1rem;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-left: 4px solid #0284c7;
+      border-radius: 12px;
+      padding: 0.55rem 1rem;
+      font-size: 0.82rem;
+      color: #0369a1;
+      line-height: 1.4;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+    .tv-notice-center strong {
+      font-weight: 800;
+      color: #0284c7;
+      letter-spacing: 0.02em;
+    }
+    .tv-clock {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #0369a1;
+      letter-spacing: 0.03em;
+    }
+    .tv-date {
+      font-size: 0.95rem;
+      color: #64748b;
+      text-transform: capitalize;
+      font-weight: 600;
+    }
+    .tv-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 2rem;
+      padding: 2rem 2.5rem;
+      flex: 1;
+    }
+    .called-hero-box {
+      background: #ffffff;
+      border: 3px solid #0284c7;
+      border-radius: 28px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(2, 132, 199, 0.12);
+      position: relative;
+    }
+    .called-hero-box.anim-flash {
+      animation: alertFlash 1s ease 3;
+    }
+    @keyframes alertFlash {
+      0%, 100% { border-color: #0284c7; }
+      50% { border-color: #38bdf8; box-shadow: 0 0 50px rgba(56, 189, 248, 0.4); }
+    }
+    .hero-ticket {
+      font-size: 8.5rem;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 0.95;
+      margin: 1rem 0;
+      letter-spacing: 0.02em;
+    }
+    .hero-office {
+      background: #0284c7;
+      color: #ffffff;
+      padding: 0.85rem 3rem;
+      border-radius: 999px;
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3);
+    }
+    .hero-doctor {
+      font-size: 1.6rem;
+      color: #0369a1;
+      margin-top: 1.25rem;
+      font-weight: 700;
+    }
+    .tv-side-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 22px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    }
+    .tv-side-card h3 {
+      font-size: 1.3rem;
+      color: #0f172a;
+      margin-bottom: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 0.85rem;
+      font-weight: 800;
+    }
+    .waiting-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .waiting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8fafc;
+      padding: 0.95rem 1.25rem;
+      border-radius: 14px;
+      border: 1px solid #e2e8f0;
+      border-left: 6px solid #0284c7;
+    }
+    .waiting-item .item-ticket {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #0284c7;
+    }
+    .waiting-item .item-spec {
+      font-size: 0.95rem;
+      color: #334155;
+      font-weight: 600;
+    }
+    .waiting-item .item-time {
+      font-size: 0.9rem;
+      color: #059669;
+      font-weight: 800;
+    }
+    .audio-toggle {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .audio-toggle:hover {
+      background: #e2e8f0;
+    }
+  </style>
+</head>
+<body class="screen-mode">
+
+  <!-- Header TV -->
+  <header class="tv-header">
+    <div style="display: flex; align-items: center; gap: 15px; flex-shrink: 0;">
+      <div class="brand-icon" style="width: 50px; height: 50px;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 6v4"/>
+          <path d="M14 8h-4"/>
+          <path d="M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16"/>
+          <path d="M2 21h20"/>
+          <path d="M10 14h4"/>
+          <path d="M10 18h4"/>
+        </svg>
+      </div>
+      <div>
+        <h1 style="font-size: 1.6rem; margin: 0; color: #0f172a; font-weight: 800;">HOSPITAL NACIONAL</h1>
+        <span style="font-size: 0.88rem; color: #0284c7; font-weight: 700; letter-spacing: 0.04em;">SISTEMA DIGITAL DE LLAMADO DE PACIENTES</span>
+      </div>
+    </div>
+
+    <!-- Aviso al Paciente en el centro del Header -->
+    <div class="tv-notice-center">
+      <strong>AVISO AL PACIENTE:</strong> Por favor mantenga a la mano su DNI. Al ser llamado su turno, acérquese inmediatamente a la puerta del consultorio indicado. Si pierde su turno, acérquese al módulo de orientación.
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 2rem; flex-shrink: 0;">
+      <button class="audio-toggle" id="btn-audio" onclick="toggleAudio()">
+        Audio: Activo (Voz)
+      </button>
+      <div style="text-align: right;">
+        <div class="tv-clock" id="tv-clock">00:00:00</div>
+        <div class="tv-date" id="tv-date">Lunes, 2 de Noviembre</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Layout Principal de Pantalla -->
+  <main class="tv-grid">
+
+    <!-- Tarjeta Principal de Turno en Llamado -->
+    <div class="called-hero-box" id="called-box">
+      <div style="font-size: 1.3rem; color: #0369a1; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 800;">
+        AHORA ATENDIENDO
+      </div>
+
+      <div class="hero-ticket" id="screen-ticket-actual">---</div>
+
+      <div class="hero-office" id="screen-consultorio-actual">
+        Sala en Espera
+      </div>
+
+      <div class="hero-doctor" id="screen-especialidad-actual">
+        Atención Activa
+      </div>
+
+      <div style="margin-top: 1rem; color: #64748b; font-size: 1.15rem; font-weight: 500;" id="screen-paciente-actual">
+        Esperando siguiente llamado
+      </div>
+    </div>
+
+    <!-- Panel Lateral: Próximos Turnos y Tiempo Estimado -->
+    <div class="tv-side-panel">
+      <div class="tv-side-card">
+        <h3>
+          <span>Turnos en Espera</span>
+          <span style="font-size: 0.95rem; color: #64748b; font-weight: 600;" id="screen-count-espera">0 pacientes</span>
+        </h3>
+
+        <div class="waiting-list" id="screen-waiting-list">
+          <!-- Cargado en tiempo real -->
+        </div>
+
+        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #f1f5f9; font-size: 0.92rem; color: #64748b; display: flex; justify-content: space-between; align-items: center;">
+          <span>Tiempo de espera promedio:</span>
+          <strong style="color: #0284c7; font-size: 1.05rem;" id="screen-avg-time">~12 min</strong>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="/js/pantalla.js"></script>
+</body>
+</html>

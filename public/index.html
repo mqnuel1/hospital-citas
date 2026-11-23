@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Nacional de Salud Pública | Citas y Gestión de Colas</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Top Emergency / Notice Bar -->
+  <div class="top-notice" id="inicio">
+    <div>
+      <span class="emergency-badge">URGENCIAS 24H</span> Central de Emergencias: <strong>106 (SAMU)</strong> | Consultas: <strong>113 Salud</strong>
+    </div>
+    <div>
+      Horario de Atención: Lunes a Sábado de 07:00 a 19:00 | Lima, Perú
+    </div>
+  </div>
+
+  <!-- Main Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#inicio" class="brand">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 6v4"/>
+            <path d="M14 8h-4"/>
+            <path d="M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16"/>
+            <path d="M2 21h20"/>
+            <path d="M10 14h4"/>
+            <path d="M10 18h4"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>HOSPITAL NACIONAL</h1>
+          <span>Sistema de Citas y Gestión de Colas</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#inicio" class="active">Inicio</a></li>
+        <li><a href="#especialidades">Especialidades</a></li>
+        <li><a href="#sacar-cita">Sacar Cita</a></li>
+        <li><a href="#consultar-cita">Mi Cita</a></li>
+        <li><a href="#hospital-info">Nosotros</a></li>
+        <li><a href="/totem">Ticket de Turno</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div>
+        <span class="hero-badge">Innovación en Salud Pública 2026</span>
+        <h2>Atención Médica Rápida, Sin Colas Innecesarias</h2>
+        <p>
+          Reserva tu cita médica online desde la comodidad de tu hogar, haz seguimiento de tu turno en tiempo real y olvídate de las filas de madrugada en ventanilla.
+        </p>
+
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="#sacar-cita" class="btn btn-accent btn-lg">
+            <span>Sacar Cita Médica</span>
+          </a>
+          <a href="#consultar-cita" class="btn btn-outline btn-lg" style="background: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.4);">
+            <span>Buscar Mi Cita</span>
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat-item">
+            <h3 id="stat-reduccion">-78%</h3>
+            <p>Tiempo de espera reducido</p>
+          </div>
+          <div class="hero-stat-item">
+            <h3 id="stat-atendidos">+1,200</h3>
+            <p>Pacientes atendidos por mes</p>
+          </div>
+          <div class="hero-stat-item">
+            <h3>8 Especialidades</h3>
+            <p>Atención oportuna y continua</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarjeta Institucional de Flujo y Canales de Atención -->
+      <div class="hero-card" style="background: rgba(255, 255, 255, 0.98); border-radius: 20px; padding: 2rem; box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.22); border: 1px solid rgba(255, 255, 255, 0.7);">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+          <h3 style="margin: 0; font-size: 1.25rem; color: #0369a1; font-weight: 800;">Flujo de Atención Digital</h3>
+          <span style="font-size: 0.72rem; font-weight: 800; color: #0284c7; background: #e0f2fe; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.04em;">MINSA / ESSALUD</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: #e0f2fe; color: #0284c7; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; flex-shrink: 0;">1</div>
+            <div>
+              <strong style="color: #0f172a; font-size: 0.92rem; display: block;">Reserva tu Cita en Línea</strong>
+              <span style="color: #64748b; font-size: 0.82rem; line-height: 1.4;">Elige tu especialidad médica y horario preferido desde casa, sin colas de madrugada.</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: #e0f2fe; color: #0284c7; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; flex-shrink: 0;">2</div>
+            <div>
+              <strong style="color: #0f172a; font-size: 0.92rem; display: block;">Verifica tu Cita o Turno</strong>
+              <span style="color: #64748b; font-size: 0.82rem; line-height: 1.4;">Busca tu cita con tu DNI para verificar horario y médico, o consulta tu ticket de turno asignado en sala.</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: #ecfdf5; color: #059669; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; flex-shrink: 0;">3</div>
+            <div>
+              <strong style="color: #0f172a; font-size: 0.92rem; display: block;">Atención Médica Oportuna</strong>
+              <span style="color: #64748b; font-size: 0.82rem; line-height: 1.4;">Pasa directamente a tu consultorio a la hora programada sin necesidad de filas presenciales.</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: #64748b;">
+          <span>Consulta Externa: <strong>07:00 - 19:00</strong></span>
+          <span style="color: #dc2626; font-weight: 700;">Urgencias: 24 Horas</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Container -->
+  <main class="container">
+
+    <!-- SECCIÓN ESPECIALIDADES MÉDICAS -->
+    <section class="hospital-services-section" id="especialidades">
+      <div class="section-title">
+        <span>Institución al Servicio del País</span>
+        <h2>Hospital Nacional de Salud Pública</h2>
+        <p>Garantizando atención médica universal, oportuna y con calidad humana para todos los peruanos.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon" title="Medicina General">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4.5 3v5a4.5 4.5 0 0 0 9 0V3"/>
+              <path d="M9 12.5v3.5a4 4 0 0 0 4 4h1a4 4 0 0 0 4-4v-1.5"/>
+              <circle cx="18" cy="13" r="2"/>
+              <path d="M3.5 3h2M12.5 3h2"/>
+            </svg>
+          </div>
+          <h3>Medicina General</h3>
+          <p>Diagnóstico clínico primario, evaluación integral y tratamiento de patologías ambulatorias comunes.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon" title="Pediatría Integral">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="8"/>
+              <path d="M9 11h.01M15 11h.01"/>
+              <path d="M9.5 15a3.5 3.5 0 0 0 5 0"/>
+              <path d="M12 4a3 3 0 0 1 3 3"/>
+            </svg>
+          </div>
+          <h3>Pediatría Integral</h3>
+          <p>Control del crecimiento, desarrollo infantil, inmunizaciones y atención integral al recién nacido y niño.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon" title="Ginecología y Obstetricia">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="5"/>
+              <path d="M12 13v8"/>
+              <path d="M9 17h6"/>
+            </svg>
+          </div>
+          <h3>Ginecología y Obstetricia</h3>
+          <p>Control prenatal, salud reproductiva, ecografía obstétrica y atención ginecológica integral.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon" title="Cardiología">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/>
+              <path d="M3.5 12h5l1.5-3 2 6 1.5-3h4.5"/>
+            </svg>
+          </div>
+          <h3>Cardiología</h3>
+          <p>Detección temprana de hipertensión arterial, arritmias y prevención del riesgo cardiovascular.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon" title="Traumatología">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 1 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/>
+            </svg>
+          </div>
+          <h3>Traumatología</h3>
+          <p>Atención especializada en lesiones osteoarticulares, esguinces, fracturas y rehabilitación física.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon" title="Neurología">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04Z"/>
+              <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04Z"/>
+            </svg>
+          </div>
+          <h3>Neurología</h3>
+          <p>Diagnóstico clínico de cefaleas, migrañas, patologías neurológicas y salud del sistema nervioso.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon" title="Oftalmología">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </div>
+          <h3>Oftalmología</h3>
+          <p>Evaluación de agudeza visual, descarte de cataratas, glaucoma y prescripción oftalmológica.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon" title="Dermatología">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M12 8v8"/>
+              <path d="M8 12h8"/>
+            </svg>
+          </div>
+          <h3>Dermatología</h3>
+          <p>Diagnóstico de patologías de la piel, control dérmico preventivo, alergias y cuidado cutáneo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN SACAR CITA (RESERVA PASO A PASO) -->
+    <section class="booking-section" id="sacar-cita">
+      <div class="section-title" style="margin-bottom: 1.5rem;">
+        <span>Servicio Digital Integrado</span>
+        <h2>Módulo de Reserva de Citas Médicas</h2>
+        <p>Completa los datos requeridos para programar tu atención de manera oficial.</p>
+      </div>
+
+      <!-- Step Indicators -->
+      <div class="wizard-steps">
+        <div class="step-indicator active" id="step-ind-1">
+          <div class="step-circle">1</div>
+          <span class="step-label">Datos del Paciente</span>
+        </div>
+        <div class="step-indicator" id="step-ind-2">
+          <div class="step-circle">2</div>
+          <span class="step-label">Especialidad</span>
+        </div>
+        <div class="step-indicator" id="step-ind-3">
+          <div class="step-circle">3</div>
+          <span class="step-label">Fecha y Horario</span>
+        </div>
+        <div class="step-indicator" id="step-ind-4">
+          <div class="step-circle">4</div>
+          <span class="step-label">Confirmación</span>
+        </div>
+      </div>
+
+      <!-- Form Container -->
+      <form id="booking-form" onsubmit="return false;">
+
+        <!-- PASO 1: DATOS DEL PACIENTE -->
+        <div class="wizard-pane active" id="pane-1">
+          <h3 style="margin-bottom: 1rem; color: #0369a1;">Paso 1: Información Personal del Paciente</h3>
+          
+          <div id="paciente-dni-aviso" style="display: none; margin-bottom: 1.25rem;"></div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="paciente-dni">DNI / Documento de Identidad <span class="req">*</span></label>
+              <input type="tel" id="paciente-dni" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="Ej. 74859632" required>
+              <span class="help-text">Ingrese los 8 dígitos numéricos de su DNI.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="paciente-seguro">Tipo de Afiliación / Seguro <span class="req">*</span></label>
+              <select id="paciente-seguro" required>
+                <option value="SIS">Seguro Integral de Salud (SIS)</option>
+                <option value="EsSalud">EsSalud (Asegurado Regular)</option>
+                <option value="Particular">Particular / Sin Seguro</option>
+                <option value="Otro">Convenio Institucional</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="paciente-nombres">Nombres <span class="req">*</span></label>
+              <input type="text" id="paciente-nombres" placeholder="Ej. Carlos Manuel" required>
+            </div>
+
+            <div class="form-group">
+              <label for="paciente-apellidos">Apellidos <span class="req">*</span></label>
+              <input type="text" id="paciente-apellidos" placeholder="Ej. Rodríguez Benítez" required>
+            </div>
+
+            <div class="form-group">
+              <label for="paciente-telefono">Teléfono Celular / WhatsApp <span class="req">*</span></label>
+              <input type="tel" id="paciente-telefono" inputmode="numeric" pattern="[0-9]*" maxlength="9" placeholder="Ej. 987654321" required>
+            </div>
+
+            <div class="form-group">
+              <label for="paciente-correo">Correo Electrónico <span class="req">*</span></label>
+              <input type="email" id="paciente-correo" placeholder="Ej. paciente@email.com" required>
+              <span class="help-text">Se enviará el comprobante oficial de su cita.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="paciente-edad">Edad (Años)</label>
+              <input type="number" id="paciente-edad" min="0" max="110" placeholder="Ej. 34" value="30">
+            </div>
+
+            <div class="form-group">
+              <label for="paciente-tipo-consulta">Tipo de Atención</label>
+              <select id="paciente-tipo-consulta">
+                <option value="Primera vez">Primera Vez (Consulta Nueva)</option>
+                <option value="Control">Control Médico / Seguimiento</option>
+                <option value="Lectura de resultados">Lectura de Exámenes o Laboratorio</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="wizard-footer">
+            <span style="color: var(--text-muted); font-size: 0.9rem;">Campos con (*) son obligatorios.</span>
+            <button type="button" class="btn btn-primary" onclick="irPaso(2)">
+              Continuar a Especialidad &rarr;
+            </button>
+          </div>
+        </div>
+
+        <!-- PASO 2: ESPECIALIDAD Y MOTIVO -->
+        <div class="wizard-pane" id="pane-2">
+          <h3 style="margin-bottom: 0.5rem; color: #0369a1;">Paso 2: Selección de Especialidad Médica</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
+            Elige el servicio médico en el que deseas ser atendido:
+          </p>
+
+          <div class="specialty-cards" id="specialties-container">
+            <!-- Cargado dinámicamente desde /api/especialidades -->
+            <div style="text-align: center; padding: 2rem; color: var(--text-muted);">Cargando especialidades...</div>
+          </div>
+
+          <div class="form-group full-width" style="margin-top: 1.5rem;">
+            <label for="paciente-motivo">Motivo breve de la consulta o síntomas:</label>
+            <textarea id="paciente-motivo" rows="2" placeholder="Ej: Dolor de cabeza frecuente y mareos desde hace una semana..."></textarea>
+          </div>
+
+          <div class="wizard-footer">
+            <button type="button" class="btn btn-outline" onclick="irPaso(1)">
+              &larr; Volver a Datos
+            </button>
+            <button type="button" class="btn btn-primary" onclick="irPaso(3)">
+              Continuar a Horario &rarr;
+            </button>
+          </div>
+        </div>
+
+        <!-- PASO 3: FECHA Y HORA -->
+        <div class="wizard-pane" id="pane-3">
+          <h3 style="margin-bottom: 0.5rem; color: #0369a1;">Paso 3: Selección de Fecha y Turno de Horario</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
+            Los horarios en verde están disponibles inmediatamente. Los tachados ya fueron reservados.
+          </p>
+
+          <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+            <div class="form-group" style="min-width: 250px;">
+              <label for="cita-fecha">Seleccione la Fecha de Atención: <span class="req">*</span></label>
+              <input type="date" id="cita-fecha" onchange="cargarHorariosDisponibles()">
+            </div>
+            <div style="display: flex; align-items: flex-end; padding-bottom: 8px;">
+              <span id="label-especialidad-seleccionada" style="font-weight: 700; color: #0369a1; background: var(--primary-light); padding: 8px 16px; border-radius: 8px;">
+                Medicina General
+              </span>
+            </div>
+          </div>
+
+          <label>Horarios Disponibles para esta Fecha:</label>
+          <div class="slots-container" id="slots-container">
+            <!-- Horarios dinámicos -->
+          </div>
+
+          <div class="wizard-footer">
+            <button type="button" class="btn btn-outline" onclick="irPaso(2)">
+              &larr; Volver a Especialidad
+            </button>
+            <button type="button" class="btn btn-accent btn-lg" id="btn-confirmar-cita" onclick="confirmarYGuardarCita()">
+              Confirmar y Registrar Cita
+            </button>
+          </div>
+        </div>
+
+        <!-- PASO 4: CONFIRMACIÓN Y COMPROBANTE -->
+        <div class="wizard-pane" id="pane-4">
+          <div style="text-align: center; margin-bottom: 1.5rem;">
+            <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--accent-light); color: var(--accent); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto; font-size: 1.5rem; font-weight: bold;">
+              OK
+            </div>
+            <h3 style="color: var(--accent); font-size: 1.6rem;" id="res-titulo-confirmacion">Cita Médica Registrada con Éxito</h3>
+            <p style="color: var(--text-muted);" id="res-subtitulo-confirmacion">Su reserva ha quedado guardada en la base de datos hospitalaria y asignada a la cola.</p>
+            <div id="res-correo-banner" style="display: none; background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; padding: 8px 16px; border-radius: 8px; font-size: 0.88rem; margin: 10px auto 0 auto; max-width: 550px;"></div>
+          </div>
+
+          <div id="res-reprogramada-banner" style="display: none; background: #fffbeb; border: 1px solid #fcd34d; color: #92400e; padding: 12px 16px; border-radius: 10px; font-size: 0.9rem; margin: 0 auto 1.5rem auto; max-width: 600px; text-align: center;"></div>
+
+          <!-- Comprobante / Ticket -->
+          <div class="ticket-wrapper" id="ticket-confirmacion">
+            <div class="ticket-header">
+              <span class="ticket-badge">COMPROBANTE OFICIAL DE CITA</span>
+              <div class="ticket-code" id="res-codigo-cita">CIT-0000</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">Hospital Nacional - MINSA / EsSalud</div>
+            </div>
+
+            <div class="ticket-body">
+              <div class="ticket-item">
+                <span class="lbl">Paciente</span>
+                <span class="val" id="res-paciente">Nombre del Paciente</span>
+              </div>
+              <div class="ticket-item">
+                <span class="lbl">DNI</span>
+                <span class="val" id="res-dni">00000000</span>
+              </div>
+              <div class="ticket-item">
+                <span class="lbl">Especialidad</span>
+                <span class="val" id="res-especialidad">Medicina General</span>
+              </div>
+              <div class="ticket-item">
+                <span class="lbl">Consultorio</span>
+                <span class="val" id="res-consultorio">Consultorio 101</span>
+              </div>
+              <div class="ticket-item">
+                <span class="lbl">Médico Responsable</span>
+                <span class="val" id="res-medico">Dr. Médico</span>
+              </div>
+              <div class="ticket-item">
+                <span class="lbl">Seguro</span>
+                <span class="val" id="res-seguro">SIS</span>
+              </div>
+              <div class="ticket-item">
+                <span class="lbl">Fecha Programada</span>
+                <span class="val" id="res-fecha" style="color: #0369a1;">2026-11-02</span>
+              </div>
+              <div class="ticket-item">
+                <span class="lbl">Hora de Atención</span>
+                <span class="val" id="res-hora" style="color: #0369a1;">09:00 AM</span>
+              </div>
+
+              <div class="ticket-item" style="grid-column: span 2; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
+                <div>
+                  <span class="lbl" style="color: #047857; font-weight: 700; font-size: 0.82rem; text-transform: uppercase;">Turno Asignado en Cola:</span>
+                  <div style="font-size: 0.78rem; color: #065f46;">Ingresado en la sala de espera en tiempo real</div>
+                </div>
+                <span class="val" id="res-turno-asignado" style="color: #047857; font-weight: 900; font-size: 1.35rem;">-</span>
+              </div>
+            </div>
+
+            <div class="ticket-barcode">
+              <div class="barcode-lines"></div>
+              <small style="color: var(--text-muted); font-size: 0.75rem;">Código de Verificación Seguro Hospitalario</small>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;" class="no-print">
+            <button type="button" class="btn btn-outline" onclick="window.print()">
+              Imprimir Comprobante
+            </button>
+            <button type="button" class="btn btn-accent" id="btn-generar-turno-inmediato" onclick="hacerCheckInDesdeCita()">
+              Turno Asignado (En Cola)
+            </button>
+            <a href="/totem" class="btn btn-outline" style="text-decoration: none; display: inline-flex; align-items: center;">
+              Consulta de Ticket
+            </a>
+            <button type="button" class="btn btn-primary" onclick="reiniciarFormulario()">
+              Sacar Otra Cita
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- SECCIÓN BUSCAR MI CITA / ESTADO DE ATENCIÓN -->
+    <section class="booking-section" id="consultar-cita" style="background: #f8fafc;">
+      <div class="section-title" style="margin-bottom: 1.5rem;">
+        <span>Autoservicio y Seguimiento</span>
+        <h2>Buscar Cita Médica y Estado</h2>
+        <p>Ingresa tu número de DNI o tu Código de Cita para verificar tu horario, consultorio y médico asignado.</p>
+      </div>
+
+      <div style="max-width: 600px; margin: 0 auto; display: flex; gap: 10px;">
+        <input type="text" id="input-buscar-cita" placeholder="Ingrese su DNI (ej: 45879632) o Código (ej: CIT-4821)" style="flex: 1;">
+        <button class="btn btn-primary" onclick="buscarCitaPaciente()">Buscar Cita</button>
+      </div>
+
+      <div id="resultado-busqueda" style="margin-top: 2rem;"></div>
+    </section>
+
+    <!-- SECCIÓN NOSOTROS / INFORMACIÓN INSTITUCIONAL Y PREGUNTAS FRECUENTES -->
+    <section id="hospital-info" style="margin: 3.5rem 0;">
+      <div class="section-title">
+        <span>Compromiso Institucional</span>
+        <h2>Modernización y Modelo de Atención Sanitaria</h2>
+        <p>Garantizamos atención médica oportuna y con calidad humana, optimizando los flujos de pacientes y eliminando las colas.</p>
+      </div>
+
+      <!-- Banner de Compromiso -->
+      <div class="info-banner">
+        <div>
+          <h3 style="margin-top: 0;">Nuevo Modelo de Gestión de Flujos y Colas Virtuales</h3>
+          <p style="margin-bottom: 0;">
+            Con el objetivo de modernizar la atención médica, este hospital implementa tótems digitales y monitores de sala para erradicar las colas de madrugada y optimizar la redistribución del personal médico.
+          </p>
+        </div>
+      </div>
+
+      <!-- Preguntas Frecuentes -->
+      <div style="background: white; border: 1px solid var(--border); border-radius: 16px; padding: 2rem;">
+        <h3 style="margin-bottom: 1.5rem; color: #0369a1;">Preguntas Frecuentes de los Pacientes</h3>
+        
+        <div style="display: grid; gap: 1.25rem;">
+          <div>
+            <h4 style="font-size: 1rem; color: #0f172a; margin-bottom: 4px;">¿Con cuánto tiempo de anticipación debo llegar a mi cita?</h4>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+              Te recomendamos llegar entre 10 y 15 minutos antes de la hora programada. Al ingresar al hospital, puedes dirigirte a la sala de espera de tu consultorio o consultar tu ticket en el Tótem de Autoservicio.
+            </p>
+          </div>
+
+          <div>
+            <h4 style="font-size: 1rem; color: #0f172a; margin-bottom: 4px;">¿Qué documentos debo presentar al momento de la consulta?</h4>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+              Debes portar tu DNI físico (o carné de extranjería) y el comprobante de cita que puedes mostrar desde tu teléfono móvil o de forma impresa. La validación del seguro médico se efectúa de manera digital en el sistema.
+            </p>
+          </div>
+
+          <div>
+            <h4 style="font-size: 1rem; color: #0f172a; margin-bottom: 4px;">¿Qué pasa si no puedo asistir a mi cita?</h4>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+              Si no puedes presentarte, el cupo de atención se liberará automáticamente al no responder al llamado en sala, permitiendo atender a los siguientes pacientes en espera. Podrás reservar una nueva cita desde el portal en el horario que tengas disponible.
+            </p>
+          </div>
+
+          <div>
+            <h4 style="font-size: 1rem; color: #0f172a; margin-bottom: 4px;">¿Cómo puedo reprogramar o cambiar la fecha y hora de mi cita?</h4>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+              Es muy sencillo: solo ingresa nuevamente al módulo de "Sacar Cita" y escribe tu DNI. El sistema reconocerá tus datos y te avisará que ya tienes una cita programada. Al elegir una nueva fecha y horario, tu cita anterior quedará cancelada automáticamente y recibirás un nuevo comprobante con tu nuevo turno de atención en la cola.
+            </p>
+          </div>
+
+          <div>
+            <h4 style="font-size: 1rem; color: #0f172a; margin-bottom: 4px;">¿Cómo sé en qué momento me corresponde ingresar al consultorio?</h4>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+              En todas las salas de espera contamos con pantallas de llamado de pacientes que muestran tu turno y consultorio asignado, acompañados por un llamado de voz automático.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4 style="display: flex; align-items: center; gap: 8px;">
+          Hospital Nacional de Salud Pública
+        </h4>
+        <p>
+          Sistema Integrado de Citas y Gestión de Flujos Hospitalarios desarrollado para optimizar la atención y erradicar las colas en el sistema público de salud.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Enlaces Rápidos</h4>
+        <li><a href="#especialidades" style="color: inherit; text-decoration: none;">Especialidades Médicas</a></li>
+        <li><a href="#sacar-cita" style="color: inherit; text-decoration: none;">Reservar Cita Médica</a></li>
+        <li><a href="#consultar-cita" style="color: inherit; text-decoration: none;">Buscar Cita Médica</a></li>
+        <li><a href="#hospital-info" style="color: inherit; text-decoration: none;">Información Institucional</a></li>
+        <li><a href="/totem" style="color: inherit; text-decoration: none;">Ticket de Turno (Tótem)</a></li>
+        <li><a href="/dashboard" style="color: #0284c7; font-weight: 700; text-decoration: none;">Acceso Personal Médico</a></li>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contacto y Ubicación</h4>
+        <p>Sede Central: Av. de la Salud 1450, Lima</p>
+        <p>Central: (01) 555-0100</p>
+        <p>Contacto: citas@hospitalnacional.gob.pe</p>
+        <p>Horario: Emergencias 24 Horas al Día</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      &copy; 2026 Hospital Nacional de Salud Pública. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

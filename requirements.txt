@@ -1,0 +1,2 @@
+# Dependencias del Sistema Hospitalario
+# El proyecto utiliza librerias nativas de Python 3 (http.server, sqlite3, smtplib)
