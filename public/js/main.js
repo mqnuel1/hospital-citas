@@ -830,8 +830,8 @@ async function buscarCitaPaciente() {
     }
 
     let html = `
-      <div style="background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-sm);">
-        <table class="data-table">
+      <div style="background: white; border: 1px solid var(--border); border-radius: 14px; overflow-x: auto; -webkit-overflow-scrolling: touch; box-shadow: var(--shadow-sm);">
+        <table class="data-table" style="min-width: 540px; width: 100%;">
           <thead>
             <tr>
               <th>Código Cita</th>

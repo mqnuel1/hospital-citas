@@ -1430,12 +1430,444 @@ footer {
   color: var(--text-muted);
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .hero-content { grid-template-columns: 1fr; }
-  .screen-main-layout { grid-template-columns: 1fr; }
-  .footer-content { grid-template-columns: 1fr; }
-  .nav-links { display: none; }
+/* Responsive Design - Optimizado para Dispositivos Moviles (Smartphones y Tablets) */
+@media (max-width: 992px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .screen-main-layout {
+    grid-template-columns: 1fr;
+  }
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Top Notice Bar en Celular */
+  .top-notice {
+    font-size: 0.74rem;
+    padding: 6px 0.75rem;
+    justify-content: center;
+    text-align: center;
+    gap: 4px;
+  }
+  .top-notice > div:last-child {
+    display: none;
+  }
+
+  /* Barra de Navegacion Adaptativa con Desplazamiento Horizontal Suave */
+  .nav-container {
+    padding: 0.5rem 0.85rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.45rem;
+  }
+  .brand {
+    justify-content: flex-start;
+  }
+  .brand-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1.05rem;
+    border-radius: 8px;
+  }
+  .brand-text h1 {
+    font-size: 0.95rem;
+  }
+  .brand-text span {
+    font-size: 0.65rem;
+  }
+
+  .nav-links {
+    display: flex !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.35rem;
+    padding: 2px 2px 6px 2px;
+    margin: 0;
+    scrollbar-width: none;
+    white-space: nowrap;
+  }
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+  .nav-links li {
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .nav-links li a {
+    display: inline-block;
+    padding: 5px 12px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #334155;
+    text-decoration: none;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s;
+  }
+  .nav-links li a.active,
+  .nav-links li a:hover {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+  }
+
+  /* Seccion Hero en Celular */
+  .hero {
+    padding: 1.75rem 1rem 1.5rem 1rem;
+  }
+  .hero-badge {
+    font-size: 0.72rem;
+    padding: 4px 10px;
+  }
+  .hero h2 {
+    font-size: 1.5rem;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+  }
+  .hero p {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    margin-bottom: 1.25rem;
+  }
+  .hero div[style*="display: flex; gap: 1rem"] {
+    flex-direction: column;
+    gap: 0.65rem !important;
+  }
+  .hero .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.8rem 1rem;
+    font-size: 0.92rem;
+  }
+  .hero-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+  }
+  .hero-stat-item h3 {
+    font-size: 1.35rem;
+  }
+  .hero-stat-item p {
+    font-size: 0.75rem;
+  }
+  .hero-card {
+    padding: 1.25rem !important;
+    border-radius: 14px !important;
+  }
+
+  /* Especialidades / Servicios */
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .service-card {
+    padding: 1.15rem;
+  }
+  .section-title {
+    margin-bottom: 1.25rem;
+  }
+  .section-title h2 {
+    font-size: 1.35rem;
+    line-height: 1.25;
+  }
+  .section-title p {
+    font-size: 0.85rem;
+  }
+
+  /* Modulo de Sacar Cita en Celular */
+  .booking-section {
+    padding: 1.15rem 0.85rem;
+    margin: 1.25rem 0;
+    border-radius: 14px;
+  }
+  .wizard-steps {
+    margin-bottom: 1.5rem;
+  }
+  .wizard-steps::before {
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    height: 2px;
+  }
+  .step-circle {
+    width: 32px;
+    height: 32px;
+    font-size: 0.82rem;
+  }
+  .step-label {
+    font-size: 0.68rem;
+    max-width: 65px;
+    text-align: center;
+    line-height: 1.15;
+    word-break: break-word;
+  }
+
+  /* Formulario y Controles */
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+  input, select, textarea {
+    font-size: 16px !important; /* Previene zoom involuntario en iPhone / Safari */
+    padding: 0.75rem 0.85rem;
+    min-height: 44px;
+  }
+  .wizard-footer {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+    align-items: stretch;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+  }
+  .wizard-footer .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.85rem 1rem;
+    font-size: 0.95rem;
+  }
+  .wizard-footer span {
+    text-align: center;
+    font-size: 0.82rem;
+  }
+
+  /* Tarjetas de Especialidad */
+  .specialty-cards {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .spec-option {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  /* Selector de Horarios en Celular */
+  #pane-3 > div[style*="display: flex"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+  }
+  #pane-3 .form-group {
+    min-width: 100% !important;
+  }
+  .slots-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  .time-slot {
+    padding: 0.65rem 0.25rem;
+    font-size: 0.88rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Comprobante de Cita en Celular */
+  .ticket-wrapper {
+    padding: 1.25rem 0.85rem;
+    margin: 1rem auto;
+    border-radius: 14px;
+    max-width: 100%;
+  }
+  .ticket-code {
+    font-size: 1.65rem;
+  }
+  .ticket-body {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+  .ticket-item {
+    padding-bottom: 0.35rem;
+    border-bottom: 1px dashed #f1f5f9;
+  }
+  .ticket-item span.lbl {
+    font-size: 0.72rem;
+  }
+  .ticket-item span.val {
+    font-size: 0.92rem;
+  }
+  .ticket-item[style*="grid-column: span 2"] {
+    grid-column: 1 / -1 !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .ticket-barcode .barcode-lines {
+    width: 90%;
+  }
+  #pane-4 .no-print {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem !important;
+  }
+  #pane-4 .no-print .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  #res-reprogramada-banner {
+    padding: 10px 12px !important;
+    font-size: 0.82rem !important;
+  }
+  #res-correo-banner {
+    font-size: 0.82rem !important;
+    padding: 8px 12px !important;
+  }
+
+  /* Seccion Buscar Cita */
+  #consultar-cita > div[style*="max-width: 600px"] {
+    flex-direction: column !important;
+  }
+  #input-buscar-cita {
+    width: 100%;
+  }
+  #consultar-cita .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.8rem;
+  }
+  .data-table-container,
+  #resultado-busqueda > div {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 12px;
+  }
+  table.data-table {
+    min-width: 520px;
+  }
+
+  /* Modal de Base de Datos e Historial */
+  .modal-overlay {
+    padding: 0.5rem;
+    align-items: flex-end;
+  }
+  .modal-content {
+    max-width: 100% !important;
+    width: 100% !important;
+    max-height: 92vh !important;
+    border-radius: 16px 16px 0 0 !important;
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-content > div[style*="overflow-y"] {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.75rem !important;
+  }
+  .modal-content table {
+    min-width: 600px;
+  }
+
+  /* Totem Kiosco en Celular */
+  .kiosk-header {
+    padding: 0.75rem 1rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+  .kiosk-header > div:last-child {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .totem-container {
+    padding: 1.25rem 0.85rem;
+  }
+  .totem-header h1 {
+    font-size: 1.55rem;
+  }
+  .totem-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .totem-action-card {
+    padding: 1.5rem 1.25rem;
+  }
+  #totem-view-dni {
+    margin: 1rem auto !important;
+  }
+
+  /* Pantalla Sala de Espera en Celular */
+  body.screen-mode {
+    overflow-y: auto !important;
+    height: auto !important;
+  }
+  .tv-header {
+    padding: 0.75rem 1rem !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+  }
+  .tv-notice-center {
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+  .tv-header > div:last-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .tv-clock {
+    font-size: 1.8rem !important;
+  }
+  .tv-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* Dashboard Administrativo en Celular */
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+  }
+  .metric-card {
+    padding: 0.85rem;
+  }
+  .metric-card .m-value {
+    font-size: 1.5rem;
+  }
+  .table-header-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+    padding: 1rem;
+  }
+  #filtro-busqueda-tabla {
+    width: 100% !important;
+  }
+}
+
+/* Pantallas Moviles Muy Pequenas (< 390px, iPhone SE) */
+@media (max-width: 390px) {
+  .slots-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hero-stats {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  .step-label {
+    display: none; /* En pantallas diminutas, solo circulos numerados para maxima limpieza */
+  }
+  .wizard-steps {
+    margin-bottom: 1.25rem;
+  }
 }
 
 @media print {
