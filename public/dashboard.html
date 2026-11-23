@@ -6,7 +6,7 @@
   <title>Administración y Control de Colas</title>
   <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body style="background: #f1f5f9;">
+<body style="background: #f1f5f9; overflow-x: hidden;">
 
   <!-- VISTA 1: INICIO DE SESIÓN RESTRINGIDO (PERSONAL MÉDICO / ADMIN) -->
   <div id="login-screen" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem;">
@@ -88,8 +88,8 @@
   <main class="container" style="padding-top: 1.5rem;">
 
     <!-- Barra de Control Centralizado de Turnos del Hospital -->
-    <div style="background: white; border: 1px solid var(--border); border-radius: 16px; padding: 1.25rem 1.5rem; margin-bottom: 2rem; box-shadow: var(--shadow-sm); display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
-      <div style="flex-shrink: 0;">
+    <div class="dashboard-ctrl-bar">
+      <div>
         <span style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.04em;">Panel Central de Atención y Llamado</span>
         <div style="font-size: 1.25rem; font-weight: 800; color: #0369a1; line-height: 1.2; margin-top: 2px;">
           Control de Consultorios y Flujo de Pacientes
@@ -97,7 +97,7 @@
       </div>
 
       <!-- Controles Centralizados de Flujo de Atención -->
-      <div style="display: flex; align-items: center; gap: 0.65rem; flex-shrink: 0;">
+      <div class="dashboard-ctrl-actions">
         <button class="btn btn-primary" id="btn-llamar-siguiente" onclick="llamarSiguientePaciente()" style="font-weight: 700; height: 38px; padding: 0 16px; white-space: nowrap;">
           Llamar Siguiente
         </button>
@@ -212,7 +212,7 @@
     </div>
 
     <!-- Herramientas de Demostración del Caso de Estudio -->
-    <div style="background: white; border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+    <div class="demo-tools-bar" style="background: white; border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
       <div>
         <h4 style="color: #0f172a; margin-bottom: 4px;">Demostración y Validación del Prototipo</h4>
         <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">

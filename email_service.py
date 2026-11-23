@@ -7,16 +7,20 @@ import os
 import smtplib
 import ssl
 import threading
+import json
+import urllib.request
+import urllib.error
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from typing import Dict, Any
 
-# Configuración SMTP
+# Configuración SMTP y Webhook HTTP (Puerto 443)
 SMTP_SERVER = os.environ.get("SMTP_SERVER", "smtp.gmail.com")
 SMTP_PORT = int(os.environ.get("SMTP_PORT", "465"))
 SMTP_USER = os.environ.get("SMTP_USER", "hospital.minsa.prot@gmail.com")
 SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "iizd ghqh lsdy nplf")
 SMTP_SENDER_NAME = os.environ.get("SMTP_SENDER_NAME", "Hospital Nacional - Sistema de Citas")
+EMAIL_WEBHOOK_URL = os.environ.get("EMAIL_WEBHOOK_URL", "").strip()
 
 def generar_plantilla_html(cita: Dict[str, Any], reprogramada: bool = False, mensaje_reprogramada: str = "") -> str:
     """Genera la plantilla HTML responsive para el comprobante de cita."""
@@ -200,8 +204,32 @@ def generar_texto_plano(cita: Dict[str, Any], reprogramada: bool = False, mensaj
     ])
     return "\n".join(lineas)
 
+def enviar_via_webhook(url: str, destinatario: str, asunto: str, html: str, texto: str) -> bool:
+    """Envía el correo a través de un Webhook HTTPS en puerto 443 (inmune al bloqueo de puertos SMTP en la nube)."""
+    try:
+        payload = json.dumps({
+            "to": destinatario,
+            "subject": asunto,
+            "html": html,
+            "text": texto,
+            "sender_name": SMTP_SENDER_NAME
+        }).encode("utf-8")
+        req = urllib.request.Request(
+            url,
+            data=payload,
+            headers={
+                "Content-Type": "application/json",
+                "User-Agent": "HospitalNacional-Citas/1.0"
+            }
+        )
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            return resp.status in (200, 201, 302)
+    except Exception as e:
+        print(f"[EMAIL WEBHOOK ERROR] Error enviando correo vía Webhook HTTPS (443): {e}")
+        return False
+
 def enviar_comprobante_cita(cita: Dict[str, Any], destinatario: str, reprogramada: bool = False, mensaje_reprogramada: str = "") -> bool:
-    """Envía el comprobante oficial por correo electrónico vía SMTP seguro."""
+    """Envía el comprobante oficial por correo electrónico (Webhook HTTPS 443 o SMTP)."""
     destinatario = (destinatario or "").strip()
     if not destinatario or "@" not in destinatario:
         print(f"[EMAIL] Destinatario no válido: '{destinatario}'. No se envía correo.")
@@ -214,24 +242,31 @@ def enviar_comprobante_cita(cita: Dict[str, Any], destinatario: str, reprogramad
     if reprogramada:
         asunto = f"Cita Reprogramada - {codigo_cita} - Hospital Nacional"
 
+    texto = generar_texto_plano(cita, reprogramada, mensaje_reprogramada)
+    html = generar_plantilla_html(cita, reprogramada, mensaje_reprogramada)
+
+    # 1. Despacho por Webhook HTTPS en puerto 443 si está configurado (compatible con Render free)
+    if EMAIL_WEBHOOK_URL:
+        ok = enviar_via_webhook(EMAIL_WEBHOOK_URL, destinatario, asunto, html, texto)
+        if ok:
+            print(f"[EMAIL HTTP] Comprobante de cita {codigo_cita} enviado con éxito a {destinatario} vía Webhook HTTPS (443)")
+            return True
+        print("[EMAIL HTTP] Falló despacho por Webhook, intentando vía SMTP...")
+
+    # 2. Despacho vía SMTP estándar
     msg = MIMEMultipart("alternative")
     msg["Subject"] = asunto
     msg["From"] = f"{SMTP_SENDER_NAME} <{SMTP_USER}>"
     msg["To"] = destinatario
-
-    # Adjuntar versiones texto y HTML
-    texto = generar_texto_plano(cita, reprogramada, mensaje_reprogramada)
-    html = generar_plantilla_html(cita, reprogramada, mensaje_reprogramada)
-
     msg.attach(MIMEText(texto, "plain", "utf-8"))
     msg.attach(MIMEText(html, "html", "utf-8"))
 
     try:
         context = ssl.create_default_context()
-        with smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT, context=context, timeout=15) as server:
+        with smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT, context=context, timeout=12) as server:
             server.login(SMTP_USER, SMTP_PASSWORD)
             server.sendmail(SMTP_USER, [destinatario], msg.as_string())
-        print(f"[EMAIL] Comprobante de cita {codigo_cita} enviado con éxito a {destinatario} ({paciente})")
+        print(f"[EMAIL SMTP] Comprobante de cita {codigo_cita} enviado con éxito a {destinatario} ({paciente})")
         return True
     except Exception as e:
         print(f"[EMAIL ERROR] Error enviando comprobante a {destinatario}: {e}")
