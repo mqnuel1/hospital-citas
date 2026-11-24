@@ -93,8 +93,16 @@ class HospitalRequestHandler(http.server.SimpleHTTPRequestHandler):
         # Archivos estáticos en /public
         clean_path = path.lstrip("/")
         file_path = os.path.join(PUBLIC_DIR, clean_path)
-        if os.path.exists(file_path) and os.path.isfile(file_path):
-            return self.serve_static_file(file_path)
+        resolved_path = os.path.abspath(file_path)
+        if not resolved_path.startswith(os.path.abspath(PUBLIC_DIR)):
+            self.send_response(403)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": "Acceso denegado"}).encode("utf-8"))
+            return
+
+        if os.path.exists(resolved_path) and os.path.isfile(resolved_path):
+            return self.serve_static_file(resolved_path)
 
         # 404 Not Found
         self.send_response(404)
@@ -119,7 +127,8 @@ class HospitalRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def serve_static_file(self, file_path):
-        if not os.path.exists(file_path) or not os.path.isfile(file_path):
+        resolved = os.path.abspath(file_path)
+        if not resolved.startswith(os.path.abspath(PUBLIC_DIR)) or not os.path.exists(resolved) or not os.path.isfile(resolved):
             self.send_response(404)
             self.end_headers()
             return
