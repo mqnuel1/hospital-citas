@@ -1369,6 +1369,122 @@ table.data-table tr:hover {
   text-transform: uppercase;
 }
 
+/* Tarjetas de Resultado de Busqueda de Cita (Mobile First & Responsive) */
+.citas-busqueda-wrapper {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.citas-cards-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cita-card-item {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.1rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.cita-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cita-card-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.cita-card-codigo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+}
+
+.cita-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.cita-card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.88rem;
+  gap: 8px;
+}
+
+.cita-row-label {
+  color: var(--text-muted);
+  font-weight: 600;
+  flex-shrink: 0;
+  font-size: 0.82rem;
+}
+
+.cita-row-val {
+  color: var(--text-main);
+  text-align: right;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.cita-dni {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+
+.cita-highlight {
+  color: #0369a1;
+  font-weight: 700;
+}
+
+.cita-turno-row {
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.citas-table-desktop {
+  display: none;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+@media (min-width: 769px) {
+  .citas-cards-mobile {
+    display: none;
+  }
+  .citas-table-desktop {
+    display: block;
+  }
+}
+
 .status-EN_ESPERA { background: var(--warning-light); color: var(--warning); }
 .status-LLAMADO { background: #e0f2fe; color: #0284c7; }
 .status-EN_ATENCION { background: #f3e8ff; color: #7e22ce; }
@@ -1469,6 +1585,17 @@ footer {
 }
 
 @media (max-width: 768px) {
+  html {
+    scroll-padding-top: 130px;
+  }
+  section[id],
+  #especialidades,
+  #sacar-cita,
+  #consultar-cita,
+  #hospital-info,
+  .booking-section {
+    scroll-margin-top: 130px !important;
+  }
   body {
     overflow-x: hidden;
   }
@@ -1759,11 +1886,16 @@ footer {
     justify-content: center;
     padding: 0.8rem;
   }
-  .data-table-container,
-  #resultado-busqueda > div {
+  .data-table-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     border-radius: 12px;
+  }
+  #resultado-busqueda {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
   table.data-table {
     min-width: 520px;

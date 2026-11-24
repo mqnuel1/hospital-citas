@@ -834,35 +834,88 @@ async function buscarCitaPaciente() {
     }
 
     let html = `
-      <div style="background: white; border: 1px solid var(--border); border-radius: 14px; overflow-x: auto; -webkit-overflow-scrolling: touch; box-shadow: var(--shadow-sm);">
-        <table class="data-table" style="min-width: 540px; width: 100%;">
-          <thead>
-            <tr>
-              <th>Código Cita</th>
-              <th>Paciente / DNI</th>
-              <th>Especialidad</th>
-              <th>Fecha y Hora</th>
-              <th>Consultorio</th>
-              <th>Estado Cita</th>
-            </tr>
-          </thead>
-          <tbody>
+      <div class="citas-busqueda-wrapper">
+        <!-- Vista en Tarjetas Adaptativas para Celulares -->
+        <div class="citas-cards-mobile">
     `;
 
     data.citas.forEach(c => {
+      const fechaFmt = c.fecha ? c.fecha.split("-").reverse().join("/") : c.fecha;
+      html += `
+        <div class="cita-card-item">
+          <div class="cita-card-header">
+            <div>
+              <span class="cita-card-label">Código de Cita</span>
+              <strong class="cita-card-codigo">${c.codigo_cita}</strong>
+            </div>
+            <span class="status-badge status-${c.estado}">${c.estado}</span>
+          </div>
+          <div class="cita-card-body">
+            <div class="cita-card-row">
+              <span class="cita-row-label">Paciente:</span>
+              <span class="cita-row-val">${c.nombres} ${c.apellidos} <span class="cita-dni">(${c.dni})</span></span>
+            </div>
+            <div class="cita-card-row">
+              <span class="cita-row-label">Especialidad:</span>
+              <span class="cita-row-val" style="font-weight: 700; color: #0284c7;">${c.especialidad_nombre}</span>
+            </div>
+            <div class="cita-card-row">
+              <span class="cita-row-label">Fecha y Hora:</span>
+              <span class="cita-row-val cita-highlight">${fechaFmt} - ${c.hora} hrs</span>
+            </div>
+            <div class="cita-card-row">
+              <span class="cita-row-label">Consultorio:</span>
+              <span class="cita-row-val">${c.consultorio}</span>
+            </div>
+            ${c.medico_responsable ? `
+            <div class="cita-card-row">
+              <span class="cita-row-label">Médico:</span>
+              <span class="cita-row-val">${c.medico_responsable}</span>
+            </div>` : ''}
+            ${c.numero_turno ? `
+            <div class="cita-card-row cita-turno-row">
+              <span class="cita-row-label">Turno en Espera:</span>
+              <span class="cita-row-val"><strong style="color: #0284c7; font-size: 1rem;">${c.numero_turno}</strong> (${c.estado_turno || 'EN_ESPERA'})</span>
+            </div>` : ''}
+          </div>
+        </div>
+      `;
+    });
+
+    html += `
+        </div>
+
+        <!-- Vista en Tabla para Pantallas Grandes -->
+        <div class="citas-table-desktop">
+          <table class="data-table" style="width: 100%;">
+            <thead>
+              <tr>
+                <th>Código Cita</th>
+                <th>Paciente / DNI</th>
+                <th>Especialidad</th>
+                <th>Fecha y Hora</th>
+                <th>Consultorio</th>
+                <th>Estado Cita</th>
+              </tr>
+            </thead>
+            <tbody>
+    `;
+
+    data.citas.forEach(c => {
+      const fechaFmt = c.fecha ? c.fecha.split("-").reverse().join("/") : c.fecha;
       html += `
         <tr>
           <td><strong style="color: #0369a1;">${c.codigo_cita}</strong></td>
           <td>${c.nombres} ${c.apellidos}<br><small style="color: var(--text-muted);">${c.dni}</small></td>
           <td>${c.especialidad_nombre}</td>
-          <td>${c.fecha} - <strong>${c.hora}</strong></td>
+          <td>${fechaFmt} - <strong>${c.hora}</strong></td>
           <td>${c.consultorio}</td>
           <td><span class="status-badge status-${c.estado}">${c.estado}</span></td>
         </tr>
       `;
     });
 
-    html += `</tbody></table></div>`;
+    html += `</tbody></table></div></div>`;
     resContainer.innerHTML = html;
 
   } catch (err) {

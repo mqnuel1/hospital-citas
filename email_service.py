@@ -213,8 +213,10 @@ def enviar_via_webhook(url: str, destinatario: str, asunto: str, html: str, text
         payload = json.dumps({
             "to": destinatario,
             "subject": asunto,
-            "html": html,
+            "body": texto,
             "text": texto,
+            "html": html,
+            "htmlBody": html,
             "sender_name": SMTP_SENDER_NAME
         }).encode("utf-8")
         req = urllib.request.Request(
@@ -238,12 +240,17 @@ def enviar_comprobante_cita(cita: Dict[str, Any], destinatario: str, reprogramad
         print(f"[EMAIL] Destinatario no válido: '{destinatario}'. No se envía correo.")
         return False
 
+    # Normalizar correo electrónico
+    partes = destinatario.split("@")
+    if len(partes) == 2:
+        destinatario = f"{partes[0].strip()}@{partes[1].strip().lower()}"
+
     codigo_cita = cita.get("codigo_cita", "CIT-0000")
     paciente = cita.get("paciente", "Paciente")
 
-    asunto = f"Comprobante Oficial de Cita Médica - {codigo_cita} - Hospital Nacional"
+    asunto = f"Comprobante de Cita Medica {codigo_cita} - Hospital Nacional"
     if reprogramada:
-        asunto = f"Cita Reprogramada - {codigo_cita} - Hospital Nacional"
+        asunto = f"Actualizacion de Cita Medica {codigo_cita} - Hospital Nacional"
 
     texto = generar_texto_plano(cita, reprogramada, mensaje_reprogramada)
     html = generar_plantilla_html(cita, reprogramada, mensaje_reprogramada)
