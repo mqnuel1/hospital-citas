@@ -411,7 +411,12 @@ async function cargarHorariosDisponibles() {
     });
 
     if (!hayDisponibles) {
-      container.innerHTML = "<p style='color: var(--danger); padding: 0.75rem; background: #fee2e2; border-radius: 8px;'>No quedan horarios disponibles para la fecha seleccionada (los horarios ya han transcurrido o están reservados). Por favor seleccione otra fecha.</p>";
+      container.innerHTML = `
+        <div style="grid-column: 1 / -1; width: 100%; box-sizing: border-box; background: #fee2e2; border: 1px solid #fca5a5; border-radius: 10px; padding: 1rem 1.25rem; color: #991b1b; font-size: 0.92rem; line-height: 1.5; text-align: left;">
+          <strong style="display: block; font-size: 0.98rem; margin-bottom: 4px; color: #7f1d1d;">Sin horarios disponibles para esta fecha</strong>
+          No quedan horarios disponibles para la fecha seleccionada (los horarios ya han transcurrido o están reservados). Por favor seleccione otra fecha en el calendario.
+        </div>
+      `;
     }
   } catch (err) {
     console.error("Error al cargar horarios:", err);

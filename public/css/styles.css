@@ -733,6 +733,13 @@ select.input-error {
   margin-top: 1rem;
 }
 
+.slots-container > p,
+.slots-container > div:not(.time-slot) {
+  grid-column: 1 / -1;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .time-slot {
   padding: 0.75rem 0.5rem;
   text-align: center;
